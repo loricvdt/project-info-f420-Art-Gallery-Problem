@@ -1,0 +1,27 @@
+@media (min-width: 900px) {
+	body {
+		width: 900px;
+	}
+}
+
+body {
+	background: #121212;
+	color: white;
+	font-family: sans-serif;
+	margin: auto;
+	padding: 1em;
+}
+
+h1, h4 {
+	text-align: center;
+	font-weight: normal;
+}
+
+p, h3 {
+	text-indent: 2em;
+}
+
+.sketch {
+	text-align: center;
+	/*padding: 20px 0 20px 0;*/
+}

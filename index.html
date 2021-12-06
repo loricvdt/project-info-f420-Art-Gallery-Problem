@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>The Art Gallery Problem</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="p5.min.js"></script>
+	<script src="common.js"></script>
+</head>
+<body>
+<h1>The Art Gallery Problem</h1>
+<h4><strong>INFO-F420: Computational Geometry</strong> project by <em>Loric Vandentempel</em></h4>
+
+<h3>Introduction</h3>
+<p>
+	The Art Gallery Problem is one of the most famous problems in Computational Geometry. It aims at choosing the least number of guards and their position to put in an art gallery so that the guards can visually cover the entire surface.
+</p>
+<p>
+	Many variants exist but the one exposed here is the classical one where the gallery is a simple 2D polygon without holes and the guards are points that can see infinitely in all directions (360°).
+</p>
+<p>
+	Following is an example of a solution to the Art Gallery Problem for that particular star-shaped polygon. The strategy used here is rather shallow and simply consists in putting a guard in every corner of the room.
+</p>
+<div class="sketch" id="star-bad"></div>
+<p>
+	By thinking a little more about the problem, it is easy to find another better solution: placing a single guard at the centre of the gallery, enabling them to look at every corner at once.
+</p>
+<div class="sketch" id="star-optimal"></div>
+
+<h3>Try it</h3>
+
+<p>
+	To get a hands-on experience with the problem and understand it better, here is an interactive version where the polygon can be created and the guards placed freely.
+</p>
+<div class="sketch" id="interactive"></div>
+
+<script src="sketches.js"></script>
+</body>
+</html>
