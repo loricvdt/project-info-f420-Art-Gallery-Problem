@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>How the project is made</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>The Art Gallery Problem</h1>
+<h4><strong>INFO-F420: Computational Geometry</strong> project by <em>Loric Vandentempel</em></h4>
+<p style="text-align: right">
+	<a href="./">< Back to project</a>
+</p>
+
+<p>
+	This web-based project is programmed in JavaScript using the <a href="https://p5js.org/">p5 library</a>. All the illustrations are therefore rendered using a custom-made engine for p5 with features that can be enabled or disabled.
+</p>
+
+<p>
+	The main features of the engine are:
+	<ul>
+		<li>Adding points successively by clicking</li>
+		<li>Turning that point list into a polygon</li>
+		<li>Importing a pre-set polygon</li>
+		<li>Adding points representing the guards position</li>
+		<li>Displaying the field of view of every placed guard</li>
+		<li>Resetting all or parts of the canvas</li>
+	</ul>
+</p>
+
+<p>
+	All these features implement several checks to ensure proper use of the interactive features. First it prevents the addition of an edge to the polygon if it intersects another existing one. Once the polygon is fixed (i.e. when all the points are connected), the guard points can be added but only on the inside of the polygon.
+</p>
+
+<p>
+	The field of view of each guard is calculated by checking which vertex is directly in sight of the guard by checking for intersection of all the other polygon edges. Then, with this list of vertices in sight it is easy to check which pair of consecutive points belong to an edge of the polygon. The line of sight of the guard goes between the pairs that do not form an edge, the closest point of intersection from the guard to the edge can be calculated, giving the limit of their vision.
+</p>
+
+<p>
+	The entirety of the project makes use of tools learned during the <em>Computational Geometry</em> course and its homeworks. These concepts include: the orientation determinant, polygons, point location, intersections, and ray shooting.
+</p>
+</body>
+</html>

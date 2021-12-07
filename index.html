@@ -10,6 +10,9 @@
 <body>
 <h1>The Art Gallery Problem</h1>
 <h4><strong>INFO-F420: Computational Geometry</strong> project by <em>Loric Vandentempel</em></h4>
+<p style="text-align: right">
+	<a href="about.html">How is this project made?</a>
+</p>
 
 <h3>Introduction</h3>
 <p>
@@ -33,6 +36,13 @@
 	To get a hands-on experience with the problem and understand it better, here is an interactive version where the polygon can be created and the guards placed freely.
 </p>
 <div class="sketch" id="interactive"></div>
+<div style="text-align: center">
+	<button onclick="interactiveObject.clearAll()">Clear all</button>
+	<button onclick="interactiveObject.clearGuards()">Clear guards</button>
+	<button onclick="interactiveObject.closePolygon()">Close polygon</button>
+	<button onclick="interactiveObject.importPolygon()">Import preset polygon</button><br/>
+	Click to draw polygon and place guards
+</div>
 
 <script src="sketches.js"></script>
 </body>
