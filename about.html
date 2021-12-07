@@ -13,21 +13,20 @@
 </p>
 
 <p>
-	This web-based project is programmed in JavaScript using the <a href="https://p5js.org/">p5 library</a>. All the illustrations are therefore rendered using a custom-made engine for p5 with features that can be enabled or disabled.
+	This web-based project is programmed in JavaScript using the <a href="https://p5js.org/">p5 library</a> and <a href="https://www.mathjax.org/">MathJax</a> for equations. All the illustrations are therefore rendered using a custom-made engine for <em>p5</em> with features that can be enabled or disabled.
 </p>
 
 <p>
 	The main features of the engine are:
-	<ul>
-		<li>Adding points successively by clicking</li>
-		<li>Turning that point list into a polygon</li>
-		<li>Importing a pre-set polygon</li>
-		<li>Adding points representing the guards position</li>
-		<li>Displaying the field of view of every placed guard</li>
-		<li>Resetting all or parts of the canvas</li>
-	</ul>
 </p>
-
+<ul>
+	<li>Adding points successively by clicking</li>
+	<li>Turning that point list into a polygon</li>
+	<li>Importing a pre-set polygon</li>
+	<li>Adding points representing the guards position</li>
+	<li>Displaying the field of view of every placed guard</li>
+	<li>Resetting all or parts of the canvas</li>
+</ul>
 <p>
 	All these features implement several checks to ensure proper use of the interactive features. First it prevents the addition of an edge to the polygon if it intersects another existing one. Once the polygon is fixed (i.e. when all the points are connected), the guard points can be added but only on the inside of the polygon.
 </p>
@@ -37,7 +36,7 @@
 </p>
 
 <p>
-	The entirety of the project makes use of tools learned during the <em>Computational Geometry</em> course and its homeworks. These concepts include: the orientation determinant, polygons, point location, intersections, and ray shooting.
+	The entirety of the project makes use of tools learned during the <em>Computational Geometry</em> course and its homeworks. These concepts include: the orientation determinant, polygons, point location, intersections, ray shooting, triangulation, bounds, and graphs.
 </p>
 </body>
 </html>

@@ -19,27 +19,60 @@ const star = [
 ]
 const savedPolygon = [new Point(156, 80), new Point(79, 172), new Point(150, 161), new Point(146, 262), new Point(84, 253), new Point(119, 299), new Point(180, 296), new Point(160, 263), new Point(168, 233), new Point(236, 229), new Point(210, 153), new Point(310, 192), new Point(281, 246), new Point(213, 284), new Point(284, 302), new Point(330, 215), new Point(351, 286), new Point(435, 169), new Point(514, 168), new Point(501, 39), new Point(367, 155), new Point(366, 83), new Point(452, 35), new Point(342, 13), new Point(330, 76), new Point(235, 61), new Point(178, 27),
 ]
+const savedTriangulation = [
+	[savedPolygon[0], savedPolygon[2]],
+	[savedPolygon[3], savedPolygon[5]],
+	[savedPolygon[3], savedPolygon[6]],
+	[savedPolygon[3], savedPolygon[7]],
+	[savedPolygon[3], savedPolygon[8]],
+	[savedPolygon[2], savedPolygon[8]],
+	[savedPolygon[10], savedPolygon[8]],
+	[savedPolygon[10], savedPolygon[2]],
+	[savedPolygon[10], savedPolygon[0]],
+	[savedPolygon[25], savedPolygon[0]],
+	[savedPolygon[25], savedPolygon[10]],
+	[savedPolygon[24], savedPolygon[10]],
+	[savedPolygon[23], savedPolygon[21]],
+	[savedPolygon[21], savedPolygon[24]],
+	[savedPolygon[20], savedPolygon[11]],
+	[savedPolygon[24], savedPolygon[11]],
+	[savedPolygon[24], savedPolygon[20]],
+	[savedPolygon[12], savedPolygon[14]],
+	[savedPolygon[12], savedPolygon[15]],
+	[savedPolygon[11], savedPolygon[15]],
+	[savedPolygon[20], savedPolygon[15]],
+	[savedPolygon[19], savedPolygon[17]],
+	[savedPolygon[20], savedPolygon[17]],
+	[savedPolygon[15], savedPolygon[17]],
+]
 
 
 function reset(p) {
 	resetGuards(p)
 	p.polygon = []
 	p.points = []
+	p.lines = []
+	p.greenLines = []
+	p.red = []
+	p.green = []
+	p.blue = []
+	p.yellow = []
 }
 
 function resetGuards(p) {
 	p.guards = []
 }
 
-function commonSetup(p, parent) {
+function commonSetup(p, parent, frameRate = 10) {
 	reset(p)
 	let canvas = p.createCanvas(600, 350)
 	canvas.parent(parent)
 	p.strokeWeight(1)
+	p.frameRate(frameRate)
 	return canvas
 }
 
-function commonDraw(p) {
+function commonDraw(p, sightLines=true) {
 	p.background(200)
 
 	// Guards field of view
@@ -52,14 +85,22 @@ function commonDraw(p) {
 
 	// Guards line of sight
 	p.strokeWeight(0.5)
-	p.stroke("white")
-	for (const line of rayLines) {
+	if(sightLines) {
+		p.stroke("white")
+		for (const line of rayLines) {
+			p.line(line[0].x, line[0].y, line[1].x, line[1].y)
+		}
+	}
+
+	p.stroke("black")
+	p.fill("black")
+
+	// Additional lines
+	for(const line of p.lines) {
 		p.line(line[0].x, line[0].y, line[1].x, line[1].y)
 	}
 
 	p.strokeWeight(1)
-	p.stroke("black")
-	p.fill("black")
 
 	// Connected point list
 	let last;
@@ -79,11 +120,38 @@ function commonDraw(p) {
 		}
 	}
 
+	// Green lines
+	p.stroke("green")
+	p.fill("green")
+	for(const line of p.greenLines) {
+		p.line(line[0].x, line[0].y, line[1].x, line[1].y)
+	}
+
 	// Guard positions
 	p.stroke("red")
 	p.fill("red")
 	for (const guard of p.guards) {
 		p.ellipse(guard.x, guard.y, 4, 4)
+	}
+
+	// Colouring
+	for (const red of p.red) {
+		p.ellipse(red.x, red.y, 4, 4)
+	}
+	p.stroke("lime")
+	p.fill("lime")
+	for (const green of p.green) {
+		p.ellipse(green.x, green.y, 4, 4)
+	}
+	p.stroke("blue")
+	p.fill("blue")
+	for (const blue of p.blue) {
+		p.ellipse(blue.x, blue.y, 4, 4)
+	}
+	p.stroke("yellow")
+	p.fill("yellow")
+	for (const yellow of p.yellow) {
+		p.ellipse(yellow.x, yellow.y, 4, 4)
 	}
 }
 

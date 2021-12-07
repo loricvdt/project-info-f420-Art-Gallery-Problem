@@ -6,6 +6,8 @@
 	<link rel="stylesheet" href="style.css">
 	<script src="p5.min.js"></script>
 	<script src="common.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 <h1>The Art Gallery Problem</h1>
@@ -30,7 +32,7 @@
 </p>
 <div class="sketch" id="star-optimal"></div>
 
-<h3>Try it</h3>
+<h3>Try it out</h3>
 
 <p>
 	To get a hands-on experience with the problem and understand it better, here is an interactive version where the polygon can be created and the guards placed freely.
@@ -43,6 +45,104 @@
 	<button onclick="interactiveObject.importPolygon()">Import preset polygon</button><br/>
 	Click to draw polygon and place guards
 </div>
+<p>
+	Finding the most optimal solution (i.e. with the least number of guards) can be difficult the more complex (and concave) the polygon gets. This lead to algorithms being made to find bounds to the number of guards and their respective positions.
+</p>
+
+<h3>Trivial solution</h3>
+<p>
+	It is a good idea to first try to solve the problem the simplest way possible, even if it does not lead to a good solution. This helps setting a higher bound to the problem.
+</p>
+<p>
+	Let us start with the simplest of polygons: the triangle. Solving the Art Gallery Problem for it is as simple as placing any guard in the middle of the room, they will cover the entirety of the surface.
+</p>
+<div class="sketch" id="triangle"></div>
+
+<p>
+	This is the base case, any triangle can be covered by a single guard. By successively adding triangles, any polygon can be created. Placing a guard in each will  therefore cover the entirety of the polygon.
+</p>
+<p>Starting with a polygon with \(n\) vertices, it can be triangulated by drawing \(n-3 \) non-crossing diagonals between its vertices (since a triangle has no possible diagonal, a quadrilateral has one, and so on). This therefore creates \(n-2\) triangles that can be covered by one guard each.</p>
+<p>This results of a higher bound for any polygon of \(n-2\) guards to cover the whole art gallery.</p>
+<div class="sketch" id="triangulated"></div>
+
+<p>This number is obviously not great and can certainly be improved by thinking about the problem from another angle.</p>
+
+<h3>Graph colouring approach</h3>
+
+<p>
+	Starting again from the triangulated version of the polygon, each vertex can be assigned a colour to form a 3-coloured graph. Finding that this is always possible is rather easy: the whole polygon is made up of triangles, assigning 2 different colours to vertices belonging to an edge of a triangle fixes the colour of its third vertex, which in turn fixes the colours of its adjacent triangles, and so on until the entire graph is coloured.
+</p>
+<div class="sketch" id="coloured"></div>
+
+<p>
+	Because there are \(n\) vertices and 3 colours, there must be at least one colour containing at most \(\left\lfloor\frac{n}{3}\right\rfloor\) vertices. In this example all colours have 9. Placing a guard at the vertices of a single of the three colours covers the entire polygon because all triangles contain all three colours.
+</p>
+
+<div class="sketch" id="redGuards"></div>
+
+<p>
+	This results in a reduced higher bound for the number of guards to \(\left\lfloor\frac{n}{3}\right\rfloor\). This is the Art Gallery Theorem.
+</p>
+
+<h3>Finding the best solution</h3>
+
+<p>
+	Finding the most optimal solution to the Art Gallery Problem is rather complex. In fact, knowing the exact least number of guards and their location for every polygon is NP-hard. There is therefore no algorithm that can solve every case efficiently in a reasonable time. This is why approximation algorithms, constraints, or variants are applied to the problem to simplify it.
+</p>
+
+<p>
+	An example of an approximation algorithm is the decomposition of the polygon into "star-shaped" polygons, where a star-shaped polygon is a polygon where its entire surface is visible by a single point (such as <a href="#star-optimal">the very first example</a>). This algorithm can find a solution to the problem in \(O(n \log n)\) time.
+</p>
+
+<p>
+	The described algorithm starts as seen before by triangulating the polygon (computable in \(O(n \log n)\)) and 3-colouring the graph (also doable in \(O(n \log n)\)). Finally, after selecting any arbitrary colour, all vertices of this colour can generate a star-shaped polygon by associating with each their adjacent vertices in the triangulated graph, which can be done in  \(O(n)\) time.
+</p>
+<div class="sketch" id="adjacent"></div>
+
+<p>
+	Star shaped polygons are then made with the associated vertices and a guard can be placed at the vertex where all the others are in sight.
+</p>
+
+<div class="sketch" id="starShaped"></div>
+
+<p>
+	There obviously exist many more algorithms for many variations of the problem, some performing better time-wise and others with a better solution quality.
+</p>
+
+<p>
+	<a href="about.html">Click here</a> to have a technical explanation about how this project is programmed and how all the illustrations are generated.
+</p>
+
+<hr/>
+<h3>References</h3>
+<p style="text-indent: 0">
+	<small>
+		Aigner, Martin, and	Günter M. Ziegler. 2009. <em>Proofs from
+		THE BOOK (Fourth Edition).</em> Springer.<br/>
+		<a href="https://proofsfromthebook.github.io/Proofs%20from%20THE%20BOOK.pdf">https://proofsfromthebook.github.io/Proofs%20from%20THE%20BOOK.pdf</a>
+	</small>
+</p>
+
+<p style="text-indent: 0">
+	<small>
+		Lee, D. T. and Arthur K. Lin. "Computational complexity of art gallery problems." <em>IEEE Transactions on Information Theory</em> 32, no. 2, (March 1986): 276-282.
+		doi: <a href="https://doi.org/10.1109/TIT.1986.1057165">10.1109/TIT.1986.1057165</a>.
+	</small>
+</p>
+
+<p style="text-indent: 0">
+	<small>
+		Avis, D. and G.T. Toussaint. "An efficient algorithm for decomposing a polygon into star-shaped polygons." <em>Pattern Recognition</em> 13, no. 6, (1981): 395-398. ISSN 0031-3203.
+		doi: <a href="https://doi.org/10.1016/0031-3203(81)90002-9">10.1016/0031-3203(81)90002-9</a>.
+	</small>
+</p>
+
+
+<p style="text-indent: 0">
+	<small>
+		Langerman F. Swarzberg, Stefan. "Computational Geometry." Lectures and supporting media, Université libre de Bruxelles, 2021.
+	</small>
+</p>
 
 <script src="sketches.js"></script>
 </body>
